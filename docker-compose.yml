@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  django:
+    build:
+      context: .
+    container_name: django
+    command: bash -c "python manage.py migrate && gunicorn config.wsgi --bind 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  nginx:
+    build:
+      context: ./Docker/nginx
+    container_name: nginx
+    tty: true
+    ports:
+      - "80:80"
+    depends_on:
+      - django
+      - postgres
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: canalservice
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
