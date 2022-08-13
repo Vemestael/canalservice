@@ -9,5 +9,6 @@ class MainConfig(AppConfig):
         """
         Вызывает обновление данных из таблицы при каждом запуске сервера
         """
-        from main.views import GSheetsAPI
-        GSheetsAPI().get('')
+#        from main.views import GSheetsAPI
+#        GSheetsAPI().get('')
+        pass

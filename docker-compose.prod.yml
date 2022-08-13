@@ -16,16 +16,19 @@ services:
       - app-network
 
   nginx:
-    build:
-      context: ./Docker/nginx
-    container_name: nginx
-    tty: true
+    image: staticfloat/nginx-certbot
+    restart: unless-stopped
     ports:
-      - "80:80"
+      - 80:80/tcp
+      - 443:443/tcp
+    environment:
+      CERTBOT_EMAIL: vemestael@gmail.com
+    volumes:
+      - ./conf.d:/etc/nginx/user.conf.d:ro
+      - ./src/:/var/www/html
+      - ./data/letsencrypt:/etc/letsencrypt
     depends_on:
       - django
-    volumes:
-      - ./src:/var/www/html
     networks:
       - app-network
 
