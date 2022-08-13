@@ -49,12 +49,13 @@ To test using the webhook, you need to deploy the application on a server with t
     $ cp ./Docker/nginx/nginx.prod.conf ./conf.d/nginx.conf
     ```
 
-2. Update the environment variables in the docker-compose.yml, conf.d/nginx.conf files
+2. Update the environment variables:
 
-3 Add the following variable to the .env file
-```
-CSRF_TRUSTED_ORIGINS=https://your_web_site
-```
+    2.1.  In the docker-compose.yml variable "CERTBOT_EMAIL"
+
+    2.2. In the conf.d/nginx.conf variable "server_name"
+    
+    2.3 In the src/.env add variable "CSRF_TRUSTED_ORIGINS=https://your_web_site"
 
 3. Set up a webhook for your site with Apix-Drive.com
 
@@ -68,3 +69,11 @@ CSRF_TRUSTED_ORIGINS=https://your_web_site
 You can see a finished example at https://vemestael.ru
 
 Web hook goes off once every half hour on a schedule
+
+## License
+
+This project is licensed under the [MIT license](LICENSE).
+
+## Credits
+
+My thanks to the developers of the [Docker](https://www.docker.com/company) and [Apix-Drive.com](https://Apix-Drive.com/).
