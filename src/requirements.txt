@@ -4,3 +4,7 @@ psycopg2~=2.9.3
 djangorestframework~=3.13.1
 gunicorn~=20.1.0
 django-filter~=22.1
+google-api-python-client~=2.56.0
+httplib2~=0.20.4
+cbrf~=0.4.7
+oauth2client~=4.1.3

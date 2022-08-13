@@ -7,5 +7,6 @@ router = routers.DefaultRouter()
 router.register(r'order-list', views.OrderListAPI)
 urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
+    path('gsheets', views.GSheetsAPI.as_view())
 ]
 urlpatterns += router.urls

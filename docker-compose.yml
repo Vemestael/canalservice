@@ -1,11 +1,11 @@
-version: "3.8"
+version: "3"
 
 services:
   django:
     build:
       context: .
     container_name: django
-    command: bash -c "python manage.py migrate && gunicorn config.wsgi --bind 0.0.0.0:8000"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --no-input &&  gunicorn config.wsgi:application --bind 0.0.0.0:8000"
     ports:
       - "8000:8000"
     volumes:
@@ -16,17 +16,19 @@ services:
       - app-network
 
   nginx:
-    build:
-      context: ./Docker/nginx
-    container_name: nginx
-    tty: true
+    image: staticfloat/nginx-certbot
+    restart: unless-stopped
     ports:
-      - "80:80"
+      - 80:80/tcp
+      - 443:443/tcp
+    environment:
+      CERTBOT_EMAIL: vemestael@gmail.com
+    volumes:
+      - ./conf.d:/etc/nginx/user.conf.d:ro
+      - ./src/:/var/www/html
+      - ./data/letsencrypt:/etc/letsencrypt
     depends_on:
       - django
-      - postgres
-    volumes:
-      - ./src:/var/www/html
     networks:
       - app-network
 
