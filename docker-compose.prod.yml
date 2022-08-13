@@ -22,7 +22,7 @@ services:
       - 80:80/tcp
       - 443:443/tcp
     environment:
-      CERTBOT_EMAIL: vemestael@gmail.com
+      CERTBOT_EMAIL: example@mail.com
     volumes:
       - ./conf.d:/etc/nginx/user.conf.d:ro
       - ./src/:/var/www/html
