@@ -30,3 +30,31 @@ This project provides you a working Django environment without requiring you to 
     ```sh
     $ docker-compose down
     ```
+
+## Other
+
+To test using the webhook, you need to deploy the application on a server with the domain
+
+1. Create an nginx configuration file to handle ssl:
+    ```sh
+    $ mkdir conf.d
+    $ mv ./Docker/nginx/nginx.prod.conf ./conf.d/nginx.conf
+    ```
+
+2. Update the environment variables in the docker-compose.yml, conf.d/nginx.conf files.
+
+3 Add the following variable to the .env file
+```
+CSRF_TRUSTED_ORIGINS=https://your_web_site
+```
+
+3. Set up a webhook for your site with Apix-Drive.com
+
+4. Build the images and run the containers:
+     ```sh
+    $ docker-compose -f docker-compose.prod.yml up -d --build
+    ```
+
+5. You've done! Main page is available on https://your_web_site
+
+You can see a finished example at https://vemestael.ru
