@@ -58,6 +58,10 @@ class GSheetsAPI(View):
                           'delivery_time': datetime.strptime(sheet_row[3], '%d.%m.%Y').date()}
         models.OrderList.objects.update_or_create(id=_id, defaults=updated_values)
 
+    """
+        В будущем можно реализовать polling механизм путем вызова get() запроса через Celery periodic tasks.
+        Также через Celery можно реализовать периодическую отправку уведомлений через telegram bot
+    """
     def get(self, request):
         """
         При вызове выполняется ручной запрос к Google Sheets Api и добавляет/обновляет данные в БД
