@@ -66,10 +66,6 @@ To test using the webhook, you need to deploy the application on a server with t
 
 5. You've done! Main page is available on https://your_web_site
 
-You can see a finished example at https://vemestael.ru
-
-Web hook goes off once every half hour on a schedule
-
 ## License
 
 This project is licensed under the [MIT license](LICENSE).
